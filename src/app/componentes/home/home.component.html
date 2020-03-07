@@ -20,7 +20,7 @@
         <td>{{persona.apellido}}</td>
         <td>{{persona.dni}}</td>
         <td>
-          <button type="button" class="btn btn-danger btn-block mr-3" ">Eliminar</button>
+          <button mat-button mat-flat-button color="primary">Eliminar</button>
 
         </td>
       </tr>
@@ -30,6 +30,8 @@
 
 
   </div>
+
+
 
       <div class="col-4">
           <form  [formGroup]="formularioPersona">
@@ -46,10 +48,13 @@
                   <input formControlName="dni" type="text" class="form-control" placeholder="ingrese su dni">
               </div>
 
-              <button  class="btn btn-success btn-block" (click)="agregar()"> Agregar </button>
-              <button  class="btn btn-primary btn-block" (click)="update()"> Editar </button>
+              <button  mat-button mat-flat-button color="primary" > Agregar </button>
+              <button  mat-button mat-flat-button color="primary" > Editar </button>
           </form>
       </div>
+
+
+
 
   </div>
 </div>
