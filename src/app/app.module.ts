@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 import { PersonaService } from './servicio/persona.service';
-
+import { MaterialModule } from './material.module'; //el encargado de importar modulos de material
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +17,8 @@ import { PersonaService } from './servicio/persona.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [PersonaService],
   bootstrap: [AppComponent]
