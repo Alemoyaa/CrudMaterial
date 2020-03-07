@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
-
 @NgModule({
   imports: [//Modulo que quiero importar
     MatButtonModule,
