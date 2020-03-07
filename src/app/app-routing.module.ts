@@ -1,10 +1,12 @@
+import { CardComponent } from './componentes/card/card.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {path: '',component: HomeComponent}
+  {path: '',component: HomeComponent},
+  {path: 'aaaaaaaa',component: CardComponent}
 ];
 
 @NgModule({

@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
     // se inicia un getAll por defecto para llenar la tabla
     this.getAll();
     this.creacionFormulario();
+    console.log(this.personas)
   }
 
   creacionFormulario() {
