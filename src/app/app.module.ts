@@ -11,11 +11,13 @@ import { PersonaService } from './servicio/persona.service';
 import { MaterialModule } from './material.module'; //el encargado de importar modulos de material
 import  {ReactiveFormsModule} from'@angular/forms';
 import { CardComponent } from './componentes/card/card.component';
+import { NavbarComponent } from './componentes/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CardComponent
+    CardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
