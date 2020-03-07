@@ -14,13 +14,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let persona of personas" >
+      <tr *ngFor="let persona of personas" (click)="creacionFormularioEditar(persona)" >
         <td>{{persona.id}}</td>
         <td>{{persona.nombre}}</td>
         <td>{{persona.apellido}}</td>
         <td>{{persona.dni}}</td>
         <td>
-          <button mat-button mat-flat-button color="primary">Eliminar</button>
+          <button mat-button mat-flat-button color="primary" (click)="delete(persona.id)" >Eliminar</button>
 
         </td>
       </tr>
@@ -48,8 +48,8 @@
                   <input formControlName="dni" type="text" class="form-control" placeholder="ingrese su dni">
               </div>
 
-              <button  mat-button mat-flat-button color="primary" > Agregar </button>
-              <button  mat-button mat-flat-button color="primary" > Editar </button>
+              <button  mat-button mat-flat-button color="primary" (click)="agregar()" > Agregar </button>
+              <button  mat-button mat-flat-button color="primary" (click)="update()" > Editar </button>
           </form>
       </div>
 
