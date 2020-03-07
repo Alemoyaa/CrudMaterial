@@ -1,1 +1,55 @@
-<p>home works!</p>
+<div class="container">
+
+  <div class="row">
+      <div class="col-8">
+
+  <table class="table table-striped table-dark mt-3">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of personas" >
+        <td>{{persona.id}}</td>
+        <td>{{persona.nombre}}</td>
+        <td>{{persona.apellido}}</td>
+        <td>{{persona.dni}}</td>
+        <td>
+          <button type="button" class="btn btn-danger btn-block mr-3" ">Eliminar</button>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  </div>
+
+      <div class="col-4">
+          <form  [formGroup]="formularioPersona">
+              <div class="form-group">
+                  <label for="">Nombre</label>
+                  <input formControlName="nombre" type="text" class="form-control" placeholder="ingrese su nombre">
+              </div>
+              <div class="form-group">
+                  <label for="">Apellido</label>
+                  <input formControlName="apellido" type="text" class="form-control" placeholder="ingrese su apellido">
+              </div>
+              <div class="form-group">
+                  <label for="">DNI</label>
+                  <input formControlName="dni" type="text" class="form-control" placeholder="ingrese su dni">
+              </div>
+
+              <button  class="btn btn-success btn-block" (click)="agregar()"> Agregar </button>
+              <button  class="btn btn-primary btn-block" (click)="update()"> Editar </button>
+          </form>
+      </div>
+
+  </div>
+</div>
