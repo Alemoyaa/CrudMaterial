@@ -10,10 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { PersonaService } from './servicio/persona.service';
 import { MaterialModule } from './material.module'; //el encargado de importar modulos de material
 import  {ReactiveFormsModule} from'@angular/forms';
+import { CardComponent } from './componentes/card/card.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
