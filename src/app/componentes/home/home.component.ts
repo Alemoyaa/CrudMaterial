@@ -20,38 +20,28 @@ export class HomeComponent implements OnInit {
   personas: Persona[] = [];
   // bolean q utilizo en el template para mostrar distintos botones
   edicion = false;
-
   // boolean para saber si el modal esta cerrado y asi cambiar los valores dentro de el
   modalCerrado = false;
-
-
 
   constructor(private servicio: PersonaService, private fb: FormBuilder) { }
 
   ngOnInit() {
-
     // cuando se realice alguna peticion del service se refrescara el gett all
     this.servicio.refresh.subscribe(() => { this.getAll() });
     // se inicia un getAll por defecto para llenar la tabla
     this.getAll();
-
-
     this.creacionFormulario();
-
-
   }
 
   creacionFormulario() {
-
     // creo el formulario y solo le damos la validacion de que sea requerido
     this.formularioPersona = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       dni: [0, Validators.required]
     });
-
-
   }
+
   cargarDatosFormulario(persona: Persona) {
     // seteo a true la edicion para mostrar el boton de editar
     this.edicion = true;
@@ -60,28 +50,22 @@ export class HomeComponent implements OnInit {
       nombre: persona.nombre,
       apellido: persona.apellido,
       dni: persona.dni,
-
     });
     // fuera de el le seteo el id para que no este dentro del formulario pero si poder manipularla y realizar la
     // edicion de la persona en update()
     this.id = persona.id;
-
-
   }
 
   getAll() {
     // utilizo el metodo getAll del servicio, como es un observable me puedo suscribir a el y manipular su data
-
     this.servicio.getAll().subscribe((data) => {
       // me aseguro que el arreglo este vacio, para cuando lo llamo de otros metodos no me agregue por
       // duplicado las personas
       this.personas.length = 0;
-
       data.forEach((res) => {
         // hago un for each de la data
         // y hago un push a personas
         this.personas.push(res);
-
       });
       // aprovecho que es un observable controlo el error del servicio y lo muestro en consola
     }, (err) => {
@@ -90,7 +74,6 @@ export class HomeComponent implements OnInit {
   }
 
   delete(id: number) {
-
     // pido confirmacion de la eliminacion
     const opcion = confirm('¿Esta seguro que desea eliminar?');
     if (opcion) {
@@ -104,7 +87,6 @@ export class HomeComponent implements OnInit {
         console.log('ocurrio un error verifique que todo este bien en ' + err);
       });
     } else {
-
     }
   }
 
@@ -124,6 +106,7 @@ export class HomeComponent implements OnInit {
       }, (err) => { console.log('ocurrio un error verifique que todo este bien en ' + err); }
     );
   }
+
   update() {
     // utilizo el metodo put del servicio enviandole el valor actual del formulario
     // ya que esta llenado por el metodo creacionFormularioEditar() con los datos de la persona a editar
