@@ -19,6 +19,7 @@ import { MaterialModule } from './material.module'; //el encargado de importar m
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule
   ],
   providers: [PersonaService],
   bootstrap: [AppComponent]
