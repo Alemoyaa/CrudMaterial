@@ -113,6 +113,7 @@ export class HomeComponent implements OnInit {
         this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido}. Agregado correctamente`, "Aceptar");
 
         this.closeModal();
+
         // controlo el error del servicio y lo muestro en consola
       }, (err) => { console.log('ocurrio un error verifique que todo este bien en ' + err); }
     );
