@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonaService } from './../../servicio/persona.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -9,7 +10,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-
   displayedColumns: string[] = ['id', 'nombre', 'apellido', 'dni', 'acciones'];
 
   dataSource: Persona[];
@@ -24,7 +24,10 @@ export class CardComponent implements OnInit {
   // boolean para saber si el modal esta cerrado y asi cambiar los valores dentro de el
   modalCerrado = false;
 
-  constructor(private servicio: PersonaService, private fb: FormBuilder,public dialog: MatDialog) { }
+  constructor(private servicio: PersonaService,
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     // cuando se realice alguna peticion del service se refrescara el gett all
@@ -32,6 +35,7 @@ export class CardComponent implements OnInit {
     // se inicia un getAll por defecto para llenar la tabla
     this.getAll();
     this.creacionFormulario();
+
     console.log(this.personas)
   }
 
@@ -83,13 +87,14 @@ export class CardComponent implements OnInit {
       // utilizo el metodo delete del servicio y le envio el id por parametro
       this.servicio.delete(id).subscribe((data) => {
         // le envio un mensaje al usuario
-        alert('Registro eliminado');
         this.formularioPersona.reset();
+        this.openSnackBar("Registro eliminado", "Aceptar");
         // controlo el error del servicio y lo muestro en consola
       }, (err) => {
         console.log('ocurrio un error verifique que todo este bien en ' + err);
       });
     } else {
+      this.openSnackBar("Registro no eliminado", "Aceptar");
     }
   }
 
@@ -103,9 +108,10 @@ export class CardComponent implements OnInit {
         // reseteo el formulario para que el usuario pueda seguira agregando personas
         this.formularioPersona.reset();
 
-        alert(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido} agregado correctamente`);
+        this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido}. Agregado correctamente`, "Aceptar");
 
         this.closeModal();
+
         // controlo el error del servicio y lo muestro en consola
       }, (err) => { console.log('ocurrio un error verifique que todo este bien en ' + err); }
     );
@@ -119,12 +125,18 @@ export class CardComponent implements OnInit {
         // seteo nuevamente el vlaor de es editar a falso para que se vuelva a mostrar el boton AGREGAR
         this.edicion = false;
         // cerramos el modal y lo dejo en modo de agregacion
-        alert(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido} editado correctamente`);
+        this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido} editado correctamente`, "Aceptar");
         this.closeModal();
         // controlo el error del servicio y lo muestro en consola
       }, (err) => {
         console.log('ocurrio un error verifique que todo este bien en ' + err);
       });
+  }
+
+  openModal(template: TemplateRef<any>) {
+   const dialogRef = this.dialog.open(template,{
+    width: '250px',
+   });
   }
 
 
@@ -134,5 +146,8 @@ export class CardComponent implements OnInit {
    this.edicion = false;
   }
 
-
-}
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+    });
+  }}

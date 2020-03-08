@@ -49,6 +49,8 @@
 
 <button mat-flat-button color="primary" (click)="openModal(template)">Nueva Persona</button>
 
+<pre>{{dataSource | json}}</pre>
+
 <ng-template #template>
 
   <h1 mat-dialog-title>Agregar Nueva Persona </h1>
