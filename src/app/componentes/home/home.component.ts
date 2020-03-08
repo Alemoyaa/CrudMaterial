@@ -35,19 +35,20 @@ export class HomeComponent implements OnInit {
   // boolean para saber si el modal esta cerrado y asi cambiar los valores dentro de el
   modalCerrado = false;
 
-  constructor(private servicio: PersonaService,
+  constructor(
+    private servicio: PersonaService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar //Este es un tipo de alert que se puede generar con AngularMaterial
+    ) { }
 
   ngOnInit() {
     // cuando se realice alguna peticion del service se refrescara el gett all
     this.servicio.refresh.subscribe(() => { this.getAll() });
+
     // se inicia un getAll por defecto para llenar la tabla
     this.getAll();
     this.creacionFormulario();
-
-    console.log(this.personas)
   }
 
   creacionFormulario() {
@@ -89,8 +90,10 @@ export class HomeComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator; //Como el matTable es una fuente de datos de tipo tabla, le pasomos el MatPaginator como un dato, lo cual escuchara automaticamente los cambios de pagina realizados por el usuario y enviara los datos paginados correctos a la tabla
 
-    }, (err) => {
-      console.log('ocurrio un error verifique que todo este bien en ' + err);
+    },
+    (err) => {
+      alert('Hubo un problema, verifique el backend: ' + err)
+      console.log('Ocurrio un error verifique que todo este bien en ' + err);
     });
   }
 
@@ -104,9 +107,7 @@ export class HomeComponent implements OnInit {
         this.formularioPersona.reset();
         this.openSnackBar("Registro eliminado", "Aceptar");
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => {
-        console.log('ocurrio un error verifique que todo este bien en ' + err);
-      });
+      }, (err) => { console.log('Ocurrio un error verifique que todo este bien en ' + err) });
     } else {
       this.openSnackBar("Registro no eliminado", "Aceptar");
     }
@@ -127,7 +128,7 @@ export class HomeComponent implements OnInit {
         this.closeModal();
 
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => { console.log('ocurrio un error verifique que todo este bien en ' + err); }
+      }, (err) => { console.log('Ocurrio un error verifique que todo este bien en ' + err) }
     );
   }
 
@@ -142,9 +143,7 @@ export class HomeComponent implements OnInit {
         this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido} editado correctamente`, "Aceptar");
         this.closeModal();
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => {
-        console.log('ocurrio un error verifique que todo este bien en ' + err);
-      });
+      }, (err) => {  console.log('Ocurrio un error verifique que todo este bien en ' + err) });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -160,9 +159,10 @@ export class HomeComponent implements OnInit {
    this.edicion = false;
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string) { //Funcion con la cual lanzamos alerta de material
     this._snackBar.open(message, action, {
       duration: 4000,
     });
   }
+
 }
