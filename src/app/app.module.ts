@@ -12,18 +12,13 @@ import { MaterialModule } from './material.module'; //el encargado de importar m
 import { ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './componentes/card/card.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
-import { PruebaComponent } from './prueba/prueba.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CardComponent,
-    NavbarComponent,
-    PruebaComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -31,10 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+    ReactiveFormsModule
   ],
   providers: [PersonaService],
   bootstrap: [AppComponent],
