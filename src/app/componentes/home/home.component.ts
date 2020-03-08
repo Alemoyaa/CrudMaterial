@@ -15,10 +15,15 @@ import { MatTableDataSource } from '@angular/material/table';
 export class HomeComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  //El primer valor es el selector, lo que queremos obtener del HTML/Templete
+  //'paginator' es el nombre de una variable en la cual se guarda lo que optenemos
 
   displayedColumns: string[] = ['id', 'nombre', 'apellido', 'dni', 'acciones'];
 
   dataSource: MatTableDataSource<Persona>;
+  //Iniciamos el data source con la estructura del ObjetoMatTable con el tipo de dato que va a mostrar
+
+
   // formulario inicial
   formularioPersona: FormGroup;
   // id que utilizare para el update
@@ -79,9 +84,11 @@ export class HomeComponent implements OnInit {
         // y hago un push a personas
         this.personas.push(res);
       });
-      this.dataSource = new MatTableDataSource<Persona>(this.personas);
-      this.dataSource.paginator = this.paginator;
-      // aprovecho que es un observable controlo el error del servicio y lo muestro en consola
+
+      this.dataSource = new MatTableDataSource<Persona>(this.personas);//Le asiganmos los datos a la fuente de datos(dataSource) para que la tabla los represente
+
+      this.dataSource.paginator = this.paginator; //Como el matTable es una fuente de datos de tipo tabla, le pasomos el MatPaginator como un dato, lo cual escuchara automaticamente los cambios de pagina realizados por el usuario y enviara los datos paginados correctos a la tabla
+
     }, (err) => {
       console.log('ocurrio un error verifique que todo este bien en ' + err);
     });
