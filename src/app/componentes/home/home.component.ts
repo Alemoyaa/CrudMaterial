@@ -1,12 +1,8 @@
 import { Persona } from './../../modelos/persona';
 import { PersonaService } from './../../servicio/persona.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 import { MatDialog } from '@angular/material/dialog';
-
-
 
 @Component({
   selector: 'app-home',
@@ -44,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.formularioPersona = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      dni: [0, Validators.required]
+      dni: [0, Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])]
     });
   }
 
@@ -132,7 +128,6 @@ export class HomeComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
    const dialogRef = this.dialog.open(template,{
     width: '250px',
-
    });
   }
 
@@ -142,6 +137,5 @@ export class HomeComponent implements OnInit {
    this.formularioPersona.reset();
    this.edicion = false;
   }
-
 
 }

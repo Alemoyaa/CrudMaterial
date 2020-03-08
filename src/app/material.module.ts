@@ -5,6 +5,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   imports: [//Modulo que quiero importar
@@ -13,7 +15,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatInputModule,
     MatDialogModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatNativeDateModule,
+    MatTabsModule
+
   ],
   exports: [//Modulo que quiero darle a otro modulo que va a usar este
     MatButtonModule,
@@ -21,7 +26,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatInputModule,
     MatDialogModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatNativeDateModule,
+    MatTabsModule
   ]
 })
 
