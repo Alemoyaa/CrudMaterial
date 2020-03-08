@@ -3,7 +3,8 @@ import { PersonaService } from './../../servicio/persona.service';
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-// import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'nombre', 'apellido', 'dni', 'acciones'];
 
+  dataSource: Persona[];
   // formulario inicial
   formularioPersona: FormGroup;
   // id que utilizare para el update
@@ -68,6 +71,7 @@ export class HomeComponent implements OnInit {
         // y hago un push a personas
         this.personas.push(res);
       });
+      this.dataSource = this.personas;
       // aprovecho que es un observable controlo el error del servicio y lo muestro en consola
     }, (err) => {
       console.log('ocurrio un error verifique que todo este bien en ' + err);

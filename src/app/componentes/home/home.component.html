@@ -1,60 +1,40 @@
-<div class="container">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <div class="row">
-      <div class="col-8">
+  
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> id </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
 
-  <table class="table table-striped table-dark mt-3">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">DNI</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let persona of personas" >
-        <td>{{persona.id}}</td>
-        <td>{{persona.nombre}}</td>
-        <td>{{persona.apellido}}</td>
-        <td>{{persona.dni}}</td>
-        <td>
-          <button mat-button mat-flat-button color="primary" (click)="delete(persona.id)" >Eliminar</button>
+  
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+  </ng-container>
 
-        </td>
-      </tr>
+  
+  <ng-container matColumnDef="apellido">
+    <th mat-header-cell *matHeaderCellDef> Apellido </th>
+    <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+  </ng-container>
 
-    </tbody>
-  </table>
+  
+  <ng-container matColumnDef="dni">
+    <th mat-header-cell *matHeaderCellDef> dni </th>
+    <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+  </ng-container>
 
-
-  </div>
-
-
-
-      <div class="col-4">
-          <form  [formGroup]="formularioPersona">
-              <div class="form-group">
-                  <label for="">Nombre</label>
-                  <input formControlName="nombre" type="text" class="form-control" placeholder="ingrese su nombre">
-              </div>
-              <div class="form-group">
-                  <label for="">Apellido</label>
-                  <input formControlName="apellido" type="text" class="form-control" placeholder="ingrese su apellido">
-              </div>
-              <div class="form-group">
-                  <label for="">DNI</label>
-                  <input formControlName="dni" type="text" class="form-control" placeholder="ingrese su dni">
-              </div>
-
-              <button  mat-button mat-flat-button color="primary" (click)="agregar()" > Agregar </button>
-              <button  mat-button mat-flat-button color="primary" (click)="update()" > Editar </button>
-          </form>
-      </div>
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> acciones </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-flat-button color="primary" (click)="delete(element.id)">Eliminar</button>
+      <button mat-flat-button color="warn" (click)="cargarDatosFormulario(element)">Editar</button>
+    </td>
+  </ng-container>
 
 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
 
 
-  </div>
-</div>
