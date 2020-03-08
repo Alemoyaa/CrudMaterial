@@ -1,8 +1,10 @@
 import { Persona } from './../../modelos/persona';
 import { PersonaService } from './../../servicio/persona.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -26,7 +28,7 @@ export class HomeComponent implements OnInit {
   // boolean para saber si el modal esta cerrado y asi cambiar los valores dentro de el
   modalCerrado = false;
 
-  constructor(private servicio: PersonaService, private fb: FormBuilder) { }
+  constructor(private servicio: PersonaService, private fb: FormBuilder,public dialog: MatDialog) { }
 
   ngOnInit() {
     // cuando se realice alguna peticion del service se refrescara el gett all
@@ -126,4 +128,20 @@ export class HomeComponent implements OnInit {
         console.log('ocurrio un error verifique que todo este bien en ' + err);
       });
   }
+
+  openModal(template: TemplateRef<any>) {
+   const dialogRef = this.dialog.open(template,{
+    width: '250px',
+
+   });
+  }
+
+
+  closeModal(): void {
+   const dialogRef = this.dialog.closeAll();
+   this.formularioPersona.reset();
+   this.edicion = false;
+  }
+
+
 }
