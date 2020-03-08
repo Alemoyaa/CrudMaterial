@@ -38,7 +38,7 @@
 
   </table>
   <mat-paginator
-      [length]="dataSource.length"
+      [length]="this.personas.length"
       [pageIndex]="0"
       [pageSize]="5"
       [pageSizeOptions]="[5, 10, 20, 25]"
@@ -49,7 +49,6 @@
 
 <button mat-flat-button color="primary" (click)="openModal(template)">Nueva Persona</button>
 
-<pre>{{dataSource | json}}</pre>
 
 <ng-template #template>
 

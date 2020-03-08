@@ -1,9 +1,11 @@
+import { MatPaginator } from '@angular/material/paginator';
 import { Persona } from './../../modelos/persona';
 import { PersonaService } from './../../servicio/persona.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +13,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   displayedColumns: string[] = ['id', 'nombre', 'apellido', 'dni', 'acciones'];
 
-  dataSource: Persona[];
+  dataSource: MatTableDataSource<Persona>;
   // formulario inicial
   formularioPersona: FormGroup;
   // id que utilizare para el update
@@ -74,7 +79,8 @@ export class HomeComponent implements OnInit {
         // y hago un push a personas
         this.personas.push(res);
       });
-      this.dataSource = this.personas;
+      this.dataSource = new MatTableDataSource<Persona>(this.personas);
+      this.dataSource.paginator = this.paginator;
       // aprovecho que es un observable controlo el error del servicio y lo muestro en consola
     }, (err) => {
       console.log('ocurrio un error verifique que todo este bien en ' + err);
