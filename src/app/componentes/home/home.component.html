@@ -1,3 +1,5 @@
+<button mat-flat-button color="primary" (click)="openModal(template)">Nueva Persona</button>
+
 <div class="mat-elevation-z8" >
   <table mat-table [dataSource]="dataSource">
 
@@ -46,9 +48,6 @@
   </mat-paginator>
 
 </div>
-
-<button mat-flat-button color="primary" (click)="openModal(template)">Nueva Persona</button>
-
 
 <ng-template #template>
 
