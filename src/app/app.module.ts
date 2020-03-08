@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,13 +12,18 @@ import { MaterialModule } from './material.module'; //el encargado de importar m
 import { ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './componentes/card/card.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { PruebaComponent } from './prueba/prueba.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CardComponent,
-    NavbarComponent
+    NavbarComponent,
+    PruebaComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +31,13 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [PersonaService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
