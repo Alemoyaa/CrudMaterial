@@ -1,24 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './componentes/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { TablaComponent } from './componentes/tabla/tabla.component';
+import { DialogComponent } from './componentes/dialog/dialog.component';
+import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
-import { PersonaService } from './servicio/persona.service';
-import { MaterialModule } from './material.module'; //el encargado de importar modulos de material
 import { ReactiveFormsModule } from '@angular/forms';
-import { CardComponent } from './componentes/card/card.component';
-import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { PersonaService } from './servicio/persona.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    CardComponent,
-    NavbarComponent
+    TablaComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +27,6 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
   ],
   providers: [PersonaService],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

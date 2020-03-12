@@ -10,8 +10,10 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PersonaService {
-  _url: string = 'http://localhost:9000/api/v1/persona/';
+  // tslint:disable-next-line: variable-name
+  _url = 'http://localhost:9000/api/v1/persona/';
 
+  // tslint:disable-next-line: variable-name
   private _refresh = new Subject<void>();
 
 
@@ -51,7 +53,7 @@ export class PersonaService {
 
     return this.http.delete(this._url + id).pipe(
       tap(() => { this._refresh.next(); }),
-      catchError( this.manejarError) );
+      catchError(this.manejarError));
 
 
   }
@@ -61,7 +63,7 @@ export class PersonaService {
   }
 
 
-  manejarError(error: HttpErrorResponse){
+  manejarError(error: HttpErrorResponse) {
 
     console.warn(error);
     return throwError('persona service');

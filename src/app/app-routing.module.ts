@@ -1,12 +1,10 @@
-import { CardComponent } from './componentes/card/card.component';
-import { HomeComponent } from './componentes/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TablaComponent } from './componentes/tabla/tabla.component';
 
 
 const routes: Routes = [
-  {path: '',component: HomeComponent},
-  {path: 'cards',component: CardComponent}
+  {path: '', component: TablaComponent},
 ];
 
 @NgModule({

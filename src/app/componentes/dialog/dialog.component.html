@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Agregar Nueva Persona </h1>
+
+  <form mat-dialog-content [formGroup]="formularioPersona">
+    <p>Ingrese los datos de la persona</p>
+
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre">
+      <mat-error  *ngIf="formularioPersona.controls['nombre'].invalid && formularioPersona.controls['nombre'].dirty"
+          role="alert">
+          <span *ngIf="formularioPersona.controls['nombre'].errors.required">El nombre es requerido</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido">
+      <mat-error  *ngIf="formularioPersona.controls['apellido'].invalid && formularioPersona.controls['apellido'].dirty"
+            role="alert">
+            <span *ngIf="formularioPersona.controls['apellido'].errors.required">El apellido es requerido</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Dni</mat-label>
+      <input matInput formControlName="dni">
+      <mat-error  *ngIf="formularioPersona.controls['dni'].invalid && formularioPersona.controls['dni'].dirty"
+            role="alert">
+            <span *ngIf="formularioPersona.controls['dni'].errors.required">El dni es requerido</span>
+            <span *ngIf="formularioPersona.controls['dni'].errors.pattern">El dni solo puede contener numeros</span>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div mat-dialog-actions>
+    <button *ngIf="!edicion" mat-button cdkFocusInitials (click)="agregar()"
+    [disabled]="formularioPersona.invalid">
+    Agregar</button>
+    <button *ngIf="edicion" mat-button   (click)="update()"
+    [disabled]="formularioPersona.invalid">
+    Editar</button>
+    <button mat-button mat-stroked-button  (click)="closeModal()">Cancelar</button>
+  </div>
+
+
