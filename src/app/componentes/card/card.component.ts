@@ -1,29 +1,18 @@
-import { MatPaginator } from '@angular/material/paginator';
-import { Persona } from './../../modelos/persona';
-import { PersonaService } from './../../servicio/persona.service';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
-
+import { MatDialog } from '@angular/material/dialog';
+import { PersonaService } from './../../servicio/persona.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Persona } from './../../modelos/persona';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.css']
 })
-export class HomeComponent implements OnInit {
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  //El primer valor es el selector, lo que queremos obtener del HTML/Templete
-  //'paginator' es el nombre de una variable en la cual se guarda lo que optenemos
-
+export class CardComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nombre', 'apellido', 'dni', 'acciones'];
 
-  dataSource: MatTableDataSource<Persona>;
-  //Iniciamos el data source con la estructura del ObjetoMatTable con el tipo de dato que va a mostrar
-
-
+  dataSource: Persona[];
   // formulario inicial
   formularioPersona: FormGroup;
   // id que utilizare para el update
@@ -35,20 +24,19 @@ export class HomeComponent implements OnInit {
   // boolean para saber si el modal esta cerrado y asi cambiar los valores dentro de el
   modalCerrado = false;
 
-  constructor(
-    private servicio: PersonaService,
+  constructor(private servicio: PersonaService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar //Este es un tipo de alert que se puede generar con AngularMaterial
-    ) { }
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     // cuando se realice alguna peticion del service se refrescara el gett all
     this.servicio.refresh.subscribe(() => { this.getAll() });
-
     // se inicia un getAll por defecto para llenar la tabla
     this.getAll();
     this.creacionFormulario();
+
+    console.log(this.personas)
   }
 
   creacionFormulario() {
@@ -85,15 +73,10 @@ export class HomeComponent implements OnInit {
         // y hago un push a personas
         this.personas.push(res);
       });
-
-      this.dataSource = new MatTableDataSource<Persona>(this.personas);//Le asiganmos los datos a la fuente de datos(dataSource) para que la tabla los represente
-
-      this.dataSource.paginator = this.paginator; //Como el matTable es una fuente de datos de tipo tabla, le pasomos el MatPaginator como un dato, lo cual escuchara automaticamente los cambios de pagina realizados por el usuario y enviara los datos paginados correctos a la tabla
-
-    },
-    (err) => {
-      alert('Hubo un problema, verifique el backend: ' + err)
-      console.log('Ocurrio un error verifique que todo este bien en ' + err);
+      this.dataSource = this.personas;
+      // aprovecho que es un observable controlo el error del servicio y lo muestro en consola
+    }, (err) => {
+      console.log('ocurrio un error verifique que todo este bien en ' + err);
     });
   }
 
@@ -107,7 +90,9 @@ export class HomeComponent implements OnInit {
         this.formularioPersona.reset();
         this.openSnackBar("Registro eliminado", "Aceptar");
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => { console.log('Ocurrio un error verifique que todo este bien en ' + err) });
+      }, (err) => {
+        console.log('ocurrio un error verifique que todo este bien en ' + err);
+      });
     } else {
       this.openSnackBar("Registro no eliminado", "Aceptar");
     }
@@ -128,7 +113,7 @@ export class HomeComponent implements OnInit {
         this.closeModal();
 
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => { console.log('Ocurrio un error verifique que todo este bien en ' + err) }
+      }, (err) => { console.log('ocurrio un error verifique que todo este bien en ' + err); }
     );
   }
 
@@ -143,7 +128,9 @@ export class HomeComponent implements OnInit {
         this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido} editado correctamente`, "Aceptar");
         this.closeModal();
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => {  console.log('Ocurrio un error verifique que todo este bien en ' + err) });
+      }, (err) => {
+        console.log('ocurrio un error verifique que todo este bien en ' + err);
+      });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -159,10 +146,8 @@ export class HomeComponent implements OnInit {
    this.edicion = false;
   }
 
-  openSnackBar(message: string, action: string) { //Funcion con la cual lanzamos alerta de material
+  openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
     });
-  }
-
-}
+  }}
