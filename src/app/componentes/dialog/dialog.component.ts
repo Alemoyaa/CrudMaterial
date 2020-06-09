@@ -1,14 +1,14 @@
-import { Component, OnInit, Host, Input, Inject } from '@angular/core';
-import { PersonaService } from 'src/app/servicio/persona.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Persona } from 'src/app/modelos/persona';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {  MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Host, Input, Inject } from "@angular/core";
+import { PersonaService } from "src/app/servicio/persona.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Persona } from "src/app/modelos/persona";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  selector: "app-dialog",
+  templateUrl: "./dialog.component.html",
+  styleUrls: ["./dialog.component.css"],
 })
 export class DialogComponent implements OnInit {
   formularioPersona: FormGroup;
@@ -23,11 +23,10 @@ export class DialogComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public dialog: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public persona: Persona
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
-    console.log('Iniciando onit');
+    console.log("Iniciando onit");
     console.log(this.persona);
     this.creacionFormulario();
 
@@ -39,12 +38,24 @@ export class DialogComponent implements OnInit {
   creacionFormulario() {
     // creo el formulario y solo le damos la validacion de que sea requerido
     this.formularioPersona = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      dni: [, Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])]
+      nombre: ["", Validators.required],
+      apellido: ["", Validators.required],
+      edad: [
+        ,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[0-9]+$"),
+        ]),
+      ],
+      dni: [
+        ,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[0-9]+$"),
+        ]),
+      ],
     });
-    console.log('creacion de formulario ejecutado');
-
+    console.log("creacion de formulario ejecutado");
   }
 
   cargarDatosFormulario() {
@@ -54,12 +65,13 @@ export class DialogComponent implements OnInit {
     this.formularioPersona.setValue({
       nombre: this.persona.nombre,
       apellido: this.persona.apellido,
+      edad: this.persona.edad,
       dni: this.persona.dni,
     });
     // fuera de el le seteo el id para que no este dentro del formulario pero si poder manipularla y realizar la
     // edicion de la persona en update()
     this.id = this.persona.id;
-    console.log('cargar datos  de formulario ejecutado');
+    console.log("cargar datos  de formulario ejecutado");
   }
 
   agregar() {
@@ -69,15 +81,21 @@ export class DialogComponent implements OnInit {
         // reseteo el formulario para que el usuario pueda seguira agregando personas
         this.formularioPersona.reset();
 
-        this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido}. Agregado correctamente`, 'Aceptar');
+        this.openSnackBar(
+          `Registro ${data.id} llamado ${data.nombre}  ${data.apellido}. Agregado correctamente`,
+          "Aceptar"
+        );
 
         this.closeModal();
 
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => { console.log('ocurrio un error verifique que todo este bien en ' + err); }
+      },
+      (err) => {
+        console.log("ocurrio un error verifique que todo este bien en " + err);
+      }
     );
 
-    console.log('Agregar ejecutado');
+    console.log("Agregar ejecutado");
   }
 
   update() {
@@ -85,16 +103,20 @@ export class DialogComponent implements OnInit {
     // ya que esta llenado por el metodo creacionFormularioEditar() con los datos de la persona a editar
     this.servicio.put(this.id, this.formularioPersona.value).subscribe(
       (data) => {
-
         // cerramos el modal y lo dejo en modo de agregacion
-        this.openSnackBar(`Registro ${data.id} llamado ${data.nombre}  ${data.apellido} editado correctamente`, 'Aceptar');
+        this.openSnackBar(
+          `Registro ${data.id} llamado ${data.nombre}  ${data.apellido} editado correctamente`,
+          "Aceptar"
+        );
         this.closeModal();
         // controlo el error del servicio y lo muestro en consola
-      }, (err) => {
-        console.log('ocurrio un error verifique que todo este bien en ' + err);
-      });
+      },
+      (err) => {
+        console.log("ocurrio un error verifique que todo este bien en " + err);
+      }
+    );
 
-    console.log('Update ejecutado');
+    console.log("Update ejecutado");
   }
 
   openSnackBar(message: string, action: string) {
@@ -102,7 +124,6 @@ export class DialogComponent implements OnInit {
       duration: 4000,
     });
   }
-
 
   closeModal() {
     this.formularioPersona.reset();
